@@ -14,17 +14,27 @@ public class Game {
     }
 
     public void initializeGame() {
-        System.out.println("=== Jungle King ===");
-        System.out.println("1. Start Game");
-        System.out.println("2. Exit Program");
-        System.out.print("Choose an option: ");
-
-        int choice = scanner.nextInt();
-        if (choice != 1) {
+        int choice;
+    
+        do {
+            System.out.println("\n=== Jungle King ===");
+            System.out.println("1. Start Game");
+            System.out.println("2. Exit Program");
+            System.out.print("Choose an option: ");
+    
+            choice = scanner.nextInt();
+    
+            if (choice != 1 && choice != 2) {
+                System.out.println("Invalid choice! Please enter 1 or 2.");
+            }
+    
+        } while (choice != 1 && choice != 2);
+    
+        if (choice == 2) {
             System.out.println("Exiting game...");
             return;
         }
-
+    
         shuffleAndAssignPieces();
         playGame();
     }
