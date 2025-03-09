@@ -11,14 +11,13 @@ public class Game {
     public Game() {
         board = new Board();
         scanner = new Scanner(System.in);
+
+        player1 = new Player("Player 1 (Blue)");
+        player2 = new Player("Player 2 (Green)");
     }
 
     public void initializeGame() {
         int choice;
-        
-        // Create players
-        player1 = new Player("Player 1 (Blue)");
-        player2 = new Player("Player 2 (Green)");
     
         do {
             System.out.println("\n=== Jungle King ===");
@@ -74,6 +73,7 @@ public class Game {
             }
         }
         
+        // TEMP: FOR MCO1 ONLY
         if (pieces.length == 2) {
             player2Choice = (player1Choice == 1) ? 2 : 1;
             System.out.println("Player 2, your number is: " + player2Choice);
