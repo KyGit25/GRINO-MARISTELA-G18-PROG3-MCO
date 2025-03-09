@@ -1,6 +1,8 @@
 public class Cat extends Piece {
+    public static final int CAT_STRENGTH = 2;
+    
     public Cat(String name, int row, int col, String symbol, String owner) {
-        super(name, row, col, symbol, owner);
+        super(name, row, col, symbol, owner, CAT_STRENGTH);
     }
 
     @Override

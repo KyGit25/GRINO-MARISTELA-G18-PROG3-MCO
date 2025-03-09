@@ -2,7 +2,7 @@ public class Trap {
     private int row;
     private int col;
     private boolean isOccupied;
-    private String owner; // "Blue" or "Green"
+    private String owner;
 
     public Trap(int row, int col, String owner) {
         this.row = row;

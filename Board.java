@@ -68,7 +68,32 @@ public class Board {
     }
     
     public void updateBoard(Piece piece, int newRow, int newCol) {
-        grid[piece.getRow()][piece.getCol()] = "  "; // Clear old position
+        int oldRow = piece.getRow();
+        int oldCol = piece.getCol();
+        
+        // Restore trap
+        if (isTrap(oldRow, oldCol)) {
+            String trapOwner = getTrapOwner(oldRow, oldCol);
+            if (trapOwner.equals("Blue")) {
+                grid[oldRow][oldCol] = " ?";
+            } else if (trapOwner.equals("Green")) {
+                grid[oldRow][oldCol] = " !";
+            }
+            // Restore piece status
+            piece.setTrapped(false);
+        } else {
+            grid[oldRow][oldCol] = "  "; // Clear old position if not a trap
+        }
+        
+        // Piece is trapped
+        if (isTrap(newRow, newCol)) {
+            String trapOwner = getTrapOwner(newRow, newCol);
+            if (!trapOwner.equals(piece.getOwner())) {
+                piece.setTrapped(true);
+                System.out.println(piece.getName() + " got trapped in a " + trapOwner + " trap!");
+            }
+        }
+        
         piece.move(newRow, newCol);
         grid[newRow][newCol] = piece.getSymbol();
     }
@@ -105,11 +130,12 @@ public class Board {
         if (opponent == null) {
             return false;
         }
-        return !opponent.getName().equals(piece.getName());
+        return !opponent.getOwner().equals(piece.getOwner());
     }
 
     public void removePiece(Piece opponent) {
         grid[opponent.getRow()][opponent.getCol()] = "  ";
+        opponent.setCaptured(true);
         pieces.remove(opponent);
     }
 
@@ -123,7 +149,7 @@ public class Board {
     }
 
     public void displayBoard() {
-        System.out.println("   +-----------------------------------+");
+        System.out.println("\n   +-----------------------------------+");
         for (int i = 0; i < ROWS; i++) {
             System.out.print("   |");
             for (int j = 0; j < COLS; j++) {

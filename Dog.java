@@ -1,6 +1,8 @@
 public class Dog extends Piece {
+    public static final int DOG_STRENGTH = 3;
+    
     public Dog(String name, int row, int col, String symbol, String owner) {
-        super(name, row, col, symbol, owner);
+        super(name, row, col, symbol, owner, DOG_STRENGTH);
     }
 
     @Override

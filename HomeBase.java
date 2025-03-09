@@ -1,7 +1,7 @@
 public class HomeBase {
     private int row;
     private int col;
-    private String owner; // "Blue" or "Green"
+    private String owner;
 
     public HomeBase(int row, int col, String owner) {
         this.row = row;
