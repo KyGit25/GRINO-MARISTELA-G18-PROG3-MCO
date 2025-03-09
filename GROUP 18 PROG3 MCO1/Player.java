@@ -15,9 +15,9 @@ public class Player {
 
     public Piece getPiece(String pieceType) {
         if (pieceType.equalsIgnoreCase("dog")) {
-            return this.dog; // ✅ Always return the assigned Dog piece
+            return this.dog; 
         } else if (pieceType.equalsIgnoreCase("cat")) {
-            return this.cat; // ✅ Always return the assigned Cat piece
+            return this.cat; 
         } else {
             return null;
         }
@@ -54,7 +54,7 @@ public class Player {
     
             board.updateBoard(piece, newRow, newCol);
     
-            // ✅ Check if the opponent's home base is captured
+
             if (board.isHomeBase(newRow, newCol, piece.getOwner().equals("Blue") ? "Green" : "Blue")) {
                 System.out.println(piece.getOwner() + " wins by capturing the opponent's home base!");
                 System.exit(0); // End the game
