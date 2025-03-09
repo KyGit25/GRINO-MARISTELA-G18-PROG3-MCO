@@ -3,13 +3,49 @@
  * It contains the common properties and methods for all pieces.
  * */
 public abstract class Piece {
+    /**
+     * The name of the piece.
+     */
     protected String name;
+    
+    /**
+     * The symbol representation of the piece on the board.
+     */
     protected String symbol;
+    
+    /**
+     * The owner of the piece ("Blue" or "Green").
+     */
     protected String owner;
+    
+    /**
+     * The row position of the piece on the board.
+     */
     protected int row;
+    
+    /**
+     * The column position of the piece on the board.
+     */
     protected int col;
-    protected boolean isTrapped, inLake;
+    
+    /**
+     * Indicates whether the piece is trapped.
+     */
+    protected boolean isTrapped;
+    
+    /**
+     * Indicates whether the piece is in a lake.
+     */
+    protected boolean inLake;
+    
+    /**
+     * Indicates whether the piece has been captured.
+     */
     protected boolean isCaptured;
+    
+    /**
+     * The strength value of the piece.
+     */
     protected int strength;
 
     /**
@@ -43,6 +79,8 @@ public abstract class Piece {
      * 
      * Pre-condition: The new row and column must be within the board grid.
      * Post-condition: The piece's position is updated to the new row and column.
+     * 
+     * @return true if the piece can move to the new position, false otherwise.
      */
     public abstract boolean canMove(int newRow, int newCol, Board board);
 
@@ -68,6 +106,8 @@ public abstract class Piece {
      * 
      * Pre-condition: The opponent piece must be a valid Piece object.
      * Post-condition: The piece's position is updated to the new row and column.
+     * 
+     * @return true if the piece can capture the opponent piece, false otherwise.
      */
     public boolean canCapture(Piece opponent, Board board) {
         if (opponent == null) {
