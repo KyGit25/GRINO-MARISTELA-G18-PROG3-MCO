@@ -1,14 +1,25 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Game {
+/**
+ * The Game class manages the overall game flow, player turns, 
+ * piece selection, movement, and win conditions.
+ */
+public class Game 
+{
     private Board board;
     private Player player1;
     private Player player2;
     private Player currentPlayer;
     private Scanner scanner;
 
-    public Game() {
+    /**
+     * Constructs a new Game instance, initializing the board, players, and scanner.
+     * Pre-condition: None.
+     * Post-condition: Board and players are initialized.
+     */
+    public Game() 
+    {
         board = new Board();
         scanner = new Scanner(System.in);
 
@@ -16,7 +27,14 @@ public class Game {
         player2 = new Player("Player 2 (Green)");
     }
 
-    public void initializeGame() {
+    /**
+     * Initializes the game by displaying a menu and handling the user's choice.
+     * If the player chooses to start, pieces are shuffled and assigned before the game begins.
+     * Pre-condition: Scanner is available for user input.
+     * Post-condition: If the player selects "Start Game," pieces are assigned, and the game begins.
+     */
+    public void initializeGame() 
+    {
         int choice;
     
         do {
@@ -27,13 +45,15 @@ public class Game {
     
             choice = scanner.nextInt();
     
-            if (choice != 1 && choice != 2) {
+            if (choice != 1 && choice != 2) 
+            {
                 System.out.println("Invalid choice! Please enter 1 or 2.");
             }
     
         } while (choice != 1 && choice != 2);
     
-        if (choice == 2) {
+        if (choice == 2) 
+        {
             System.out.println("Exiting game...");
             return;
         }
@@ -42,7 +62,13 @@ public class Game {
         playGame();
     }
 
-    private void shuffleAndAssignPieces() {
+    /**
+     * Randomly assigns pieces to players and determines who goes first based on strength.
+     * Pre-condition: Players are initialized, and a randomizer is available.
+     * Post-condition: Each player receives a piece, and the first player is determined.
+     */
+    private void shuffleAndAssignPieces() 
+    {
         int player1Choice = 0, player2Choice = 0;
         Random rand = new Random();
 
@@ -53,7 +79,8 @@ public class Game {
         Piece[] pieces = {dog, cat};
         
         // Shuffle the pieces
-        for (int i = 0; i < pieces.length; i++) {
+        for (int i = 0; i < pieces.length; i++) 
+        {
             int randomIndex = rand.nextInt(pieces.length);
             Piece temp = pieces[i];
             pieces[i] = pieces[randomIndex];
@@ -65,23 +92,32 @@ public class Game {
         System.out.println(pieces.length + " hidden numbers contain different animals.");
         
         // Pick number
-        while (player1Choice < 1 || player1Choice > pieces.length) {
+        while (player1Choice < 1 || player1Choice > pieces.length) 
+        {
             System.out.print("Player 1, pick a number between 1-" + pieces.length + ": ");
             player1Choice = scanner.nextInt();
-            if (player1Choice < 1 || player1Choice > pieces.length) {
+
+            if (player1Choice < 1 || player1Choice > pieces.length) 
+            {
                 System.out.println("Invalid choice. Please pick a valid number.");
             }
         }
         
         // TEMP: FOR MCO1 ONLY
-        if (pieces.length == 2) {
+        if (pieces.length == 2) 
+        {
             player2Choice = (player1Choice == 1) ? 2 : 1;
             System.out.println("Player 2, your number is: " + player2Choice);
-        } else {
-            while (player2Choice < 1 || player2Choice > pieces.length || player2Choice == player1Choice) {
+        } 
+        else 
+        {
+            while (player2Choice < 1 || player2Choice > pieces.length || player2Choice == player1Choice) 
+            {
                 System.out.print("Player 2, pick a number between 1-" + pieces.length + ": ");
                 player2Choice = scanner.nextInt();
-                if (player2Choice < 1 || player2Choice > pieces.length || player2Choice == player1Choice) {
+
+                if (player2Choice < 1 || player2Choice > pieces.length || player2Choice == player1Choice) 
+                {
                     System.out.println("Invalid choice. Please pick a valid number.");
                 }
             }
@@ -109,58 +145,83 @@ public class Game {
         player2.addPiece(p2Cat);
         
         // Determine first player based on strength
-        if (player1Piece.getStrength() > player2Piece.getStrength()) {
+        if (player1Piece.getStrength() > player2Piece.getStrength()) 
+        {
             currentPlayer = player1;
             System.out.println("\n" + currentPlayer.getName() + " goes first because " + player1Piece.getName() + " is stronger than " + player2Piece.getName() + "!\n");
-        } else if (player2Piece.getStrength() > player1Piece.getStrength()) {
+        } 
+        else if (player2Piece.getStrength() > player1Piece.getStrength()) 
+        {
             currentPlayer = player2;
             System.out.println("\n" + currentPlayer.getName() + " goes first because " + player2Piece.getName() + " is stronger than " + player1Piece.getName() + "!\n");
-        } else {
-            if (rand.nextBoolean()) {
+        } 
+        else 
+        {
+            if (rand.nextBoolean()) 
+            {
                 currentPlayer = player1;
-            } else {
+            } 
+            else 
+            {
                 currentPlayer = player2;
             }
             System.out.println("\n" + currentPlayer.getName() + " goes first (randomly selected for equal strength)!\n");
         }
         
         // Place the initialized pieces on the board
-        for (Piece piece : player1.getAllPieces()) {
+        for (Piece piece : player1.getAllPieces()) 
+        {
             board.placePiece(piece);
         }
         
-        for (Piece piece : player2.getAllPieces()) {
+        for (Piece piece : player2.getAllPieces()) 
+        {
             board.placePiece(piece);
         }
     }
     
-    private void playGame() {
+    /**
+     * Controls the game loop, allowing players to take turns moving pieces 
+     * until a win condition or draw is reached.
+     * Pre-condition: Players and board must be initialized with pieces.
+     * Post-condition: The game continues until one player wins or a draw occurs.
+     */
+    private void playGame() 
+    {
         boolean gameOver = false;
         
-        while (!gameOver) {
+        while (!gameOver) 
+        {
             board.displayBoard();
             System.out.println(currentPlayer.getName() + "'s Turn");
 
             // check pieces
-            if (currentPlayer.getActivePieces().isEmpty()) {
+            if (currentPlayer.getActivePieces().isEmpty()) 
+            {
                 System.out.println(currentPlayer.getName() + " has no pieces left. Turn forfeited.");
                 switchTurn();
-            } else {
+            } 
+            else 
+            {
                 Piece selectedPiece = selectPiece();
                 char direction = getDirectionInput();
 
                 currentPlayer.movePiece(selectedPiece, direction, board);
 
-                if (checkWinCondition(selectedPiece)) {
+                if (checkWinCondition(selectedPiece)) 
+                {
                     System.out.println("\n" + currentPlayer.getName() + " wins the game!");
                     gameOver = true;
-                } else {
+                } 
+                else 
+                {
                     switchTurn();
                 }
             }
             
             // Check draw
-            if (player1.getActivePieces().isEmpty() && player2.getActivePieces().isEmpty()) {
+            if (player1.getActivePieces().isEmpty() && player2.getActivePieces().isEmpty()) 
+            {
                 System.out.println("\nBoth players have no pieces left. Game ends in a draw!");
                 gameOver = true;
             }
@@ -169,26 +230,50 @@ public class Game {
         System.out.println("Game Over!");
     }
 
-    private Piece selectPiece() {
+    /**
+     * Allows the current player to select a piece to move.
+     * The method repeatedly asks for input until a valid piece is selected.
+     * Pre-condition: The current player must have at least one active piece.
+     * Post-condition: Returns a valid piece that the player owns.
+     * 
+     * @return The selected Piece that the player will move.
+     */
+    private Piece selectPiece() 
+    {
         Piece selectedPiece = null;
-        while (selectedPiece == null) {
+        while (selectedPiece == null) 
+        {
             System.out.print("Select a piece to move (Dog/Cat): ");
             String pieceType = scanner.next();
             selectedPiece = currentPlayer.getPiece(pieceType);
             
-            if (selectedPiece == null) {
+            if (selectedPiece == null) 
+            {
                 System.out.println("Invalid selection. Try again.\n");
             }
         }
         return selectedPiece;
     }
 
-    private char getDirectionInput() {
+    /**
+     * Prompts the player to input a direction for moving their piece.
+     * The method ensures valid input by continuously asking until a correct direction is given.
+     * Valid directions: W (Up), S (Down), A (Left), D (Right).
+     * Pre-condition: None.
+     * Post-condition: Returns a valid direction character.
+     * 
+     * @return A valid direction character ('W', 'A', 'S', or 'D').
+     */
+    private char getDirectionInput() 
+    {
         char direction;
-        while (true) {
+        while (true) 
+        {
             System.out.print("Enter direction (W = Up, S = Down, A = Left, D = Right): ");
             direction = scanner.next().toUpperCase().charAt(0);
-            if (direction == 'W' || direction == 'S' || direction == 'A' || direction == 'D') {
+
+            if (direction == 'W' || direction == 'S' || direction == 'A' || direction == 'D') 
+            {
                 break;
             }
             System.out.println("Invalid direction. Use W, A, S, or D.\n");
@@ -196,21 +281,41 @@ public class Game {
         return direction;
     }
 
-    private boolean checkWinCondition(Piece piece) {
-        if (piece.getOwner().equals("Blue") && board.isHomeBase(piece.getRow(), piece.getCol(), "Green")) {
+    /**
+     * Checks if a player's move results in a win condition.
+     * A player wins if their piece reaches the opponent's home base.
+     * Pre-condition: The piece must be a valid, active piece on the board.
+     * Post-condition: Returns true if the move results in a win; otherwise, false.
+     * 
+     * @param piece The piece that was moved.
+     * @return true if the player wins, false otherwise.
+     */
+    private boolean checkWinCondition(Piece piece) 
+    {
+        if (piece.getOwner().equals("Blue") && board.isHomeBase(piece.getRow(), piece.getCol(), "Green")) 
+        {
             return true; // Blue wins by capturing Green's home base
         }
-        if (piece.getOwner().equals("Green") && board.isHomeBase(piece.getRow(), piece.getCol(), "Blue")) {
+        if (piece.getOwner().equals("Green") && board.isHomeBase(piece.getRow(), piece.getCol(), "Blue")) 
+        {
             return true; // Green wins by capturing Blue's home base
         }
         return false;
     }
     
-
-    private void switchTurn() {
-        if (currentPlayer == player1) {
+    /**
+     * Switches the turn to the other player.
+     * Pre-condition: The game must be running, and both players must be initialized.
+     * Post-condition: The current player is switched to the other player.
+     */
+    private void switchTurn() 
+    {
+        if (currentPlayer == player1) 
+        {
             currentPlayer = player2;
-        } else {
+        } 
+        else 
+        {
             currentPlayer = player1;
         }
     }
