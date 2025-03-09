@@ -57,6 +57,12 @@ public class Player {
     
         if (piece.canMove(newRow, newCol, board)) {
             Piece opponent = board.getPieceAt(newRow, newCol);
+            
+            if (opponent != null && opponent.getOwner().equals(piece.getOwner()) && board.isTrap(newRow, newCol)) {
+                System.out.println("Invalid move.\n");
+                return;
+            }
+
             if (opponent != null && board.isOpponentPiece(piece, newRow, newCol)) {
                 if (piece.canCapture(opponent, board)) {
                     System.out.println(piece.getName() + " captured " + opponent.getName() + "!");
