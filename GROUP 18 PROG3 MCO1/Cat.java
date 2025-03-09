@@ -13,7 +13,6 @@ public class Cat extends Piece {
             return false; // Cats cannot enter lakes
         }
     
-        // ✅ Allow moving into opponent's home base
         if (board.isHomeBase(newRow, newCol, this.getOwner().equals("Blue") ? "Green" : "Blue")) {
             return true;
         }
