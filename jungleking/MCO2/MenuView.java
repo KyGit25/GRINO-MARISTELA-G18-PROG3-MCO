@@ -2,7 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MenuView extends JFrame {
+public class MenuView {
+    private JFrame mainFrame;
     private GameController controller;
     private JPanel mainPanel;
 
@@ -13,11 +14,11 @@ public class MenuView extends JFrame {
     }
 
     private void initializeFrame() {
-        setTitle("Jungle King");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 500);
-        setLocationRelativeTo(null);
-        setResizable(false);
+        mainFrame = new JFrame("Jungle King");
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setSize(800, 500);
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setResizable(false);
     }
 
     private void createMenuComponents() {
@@ -62,7 +63,7 @@ public class MenuView extends JFrame {
         
         mainPanel.setBounds(200, 0, 400, 500);
         
-        add(container);
+        mainFrame.add(container);
     }
 
     private JButton createMenuButton(String text) {
@@ -143,10 +144,18 @@ public class MenuView extends JFrame {
             "</div></html>";
 
         JOptionPane.showMessageDialog(
-            this,
+            mainFrame,
             INSTRUCTIONS,
             "Instructions",
             JOptionPane.INFORMATION_MESSAGE
         );
+    }
+
+    public void setVisible(boolean visible) {
+        mainFrame.setVisible(visible);
+    }
+
+    public void dispose() {
+        mainFrame.dispose();
     }
 } 

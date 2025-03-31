@@ -2,9 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class BoardView extends JFrame {
+public class BoardView {
     private static final int TILE_SIZE = 80;
-    
+
     // piece positions
     private static final Object[][] BLUE_PIECES = {
         {"Tiger", 0, 0},
@@ -28,7 +28,7 @@ public class BoardView extends JFrame {
         {"Rat", 0, 6}
     };
 
-    // UI Components
+    private JFrame displayFrame;
     private JPanel boardPanel;
     private JPanel statusPanel;
     private JLabel turnLabel;
@@ -45,11 +45,11 @@ public class BoardView extends JFrame {
     }
 
     private void initializeFrame() {
-        setTitle("Jungle King");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(board.getCols() * TILE_SIZE + 100, board.getRows() * TILE_SIZE + 150);
-        setLocationRelativeTo(null);
-        setResizable(false);
+        displayFrame = new JFrame("Jungle King");
+        displayFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        displayFrame.setSize(board.getCols() * TILE_SIZE + 100, board.getRows() * TILE_SIZE + 100);
+        displayFrame.setLocationRelativeTo(null);
+        displayFrame.setResizable(false);
     }
 
     private void createBoard() {
@@ -66,12 +66,12 @@ public class BoardView extends JFrame {
         createBoardTiles();
         container.add(boardPanel, BorderLayout.CENTER);
 
-        add(container);
+        displayFrame.add(container);
     }
 
     private void createStatusPanel() {
         statusPanel = new JPanel(new BorderLayout());
-        statusPanel.setPreferredSize(new Dimension(getWidth(), 60));
+        statusPanel.setPreferredSize(new Dimension(displayFrame.getWidth(), 60));
         statusPanel.setBackground(new Color(245, 245, 245));
         statusPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
@@ -168,5 +168,13 @@ public class BoardView extends JFrame {
 
     public void updateEvent(String message) {
         eventLabel.setText(message);
+    }
+
+    public void setVisible(boolean visible) {
+        displayFrame.setVisible(visible);
+    }
+
+    public void dispose() {
+        displayFrame.dispose();
     }
 }

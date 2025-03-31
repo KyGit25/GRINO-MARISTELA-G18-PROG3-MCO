@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
-public class GameView extends JFrame {
-
+public class GameView {
+    private JFrame selectionFrame;
     private GameController controller;
     private boolean isPlayer1Turn;
 
@@ -16,26 +16,25 @@ public class GameView extends JFrame {
     private ImageIcon[] blueAnimalIcons;
     private ImageIcon[] greenAnimalIcons;
 
-     // Constants
+    // Constants
     private static final String[] ANIMAL_NAMES = {
         "Elephant", "Lion", "Tiger", "Leopard", 
         "Wolf", "Dog", "Cat", "Rat"
     };
 
-
     public GameView() {
-        initializeFrame();
+        initializeSelectionFrame();
         loadResources();
         loadPieceSelection();
     }
 
-    private void initializeFrame() {
-        setTitle("Jungle King - Piece Selection");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 400);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        getContentPane().setBackground(new Color(245, 245, 245));
+    private void initializeSelectionFrame() {
+        selectionFrame = new JFrame("Jungle King - Piece Selection");
+        selectionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        selectionFrame.setSize(600, 400);
+        selectionFrame.setLocationRelativeTo(null);
+        selectionFrame.setResizable(false);
+        selectionFrame.getContentPane().setBackground(new Color(245, 245, 245));
         isPlayer1Turn = true;
     }
 
@@ -56,7 +55,7 @@ public class GameView extends JFrame {
     }
 
     private void loadPieceSelection() {
-        setLayout(new BorderLayout());
+        selectionFrame.setLayout(new BorderLayout());
 
         statusLabel = createStyledLabel("Player 1: Select your piece");
         JPanel statusPanel = new JPanel();
@@ -64,7 +63,7 @@ public class GameView extends JFrame {
         statusPanel.setLayout(new BorderLayout());
         statusPanel.add(statusLabel, BorderLayout.CENTER);
         statusPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
-        add(statusPanel, BorderLayout.NORTH);
+        selectionFrame.add(statusPanel, BorderLayout.NORTH);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(new Color(245, 245, 245));
@@ -79,7 +78,7 @@ public class GameView extends JFrame {
         piecePanel.add(selectionPanel, BorderLayout.CENTER);
         
         mainPanel.add(piecePanel, BorderLayout.CENTER);
-        add(mainPanel, BorderLayout.CENTER);
+        selectionFrame.add(mainPanel, BorderLayout.CENTER);
     }
 
     private JLabel createStyledLabel(String text) {
@@ -152,10 +151,18 @@ public class GameView extends JFrame {
     }
 
     public void showMessage(String message) {
-        JOptionPane.showMessageDialog(this, message);
+        JOptionPane.showMessageDialog(selectionFrame, message);
     }
 
     public void setController(GameController controller) {
         this.controller = controller;
+    }
+
+    public void setVisible(boolean visible) {
+        selectionFrame.setVisible(visible);
+    }
+
+    public void dispose() {
+        selectionFrame.dispose();
     }
 }
