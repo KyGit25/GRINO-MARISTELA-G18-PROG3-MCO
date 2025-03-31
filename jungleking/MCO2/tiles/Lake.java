@@ -2,18 +2,8 @@
  * The Lake class represents a lake tile on the game board.
  * It stores the position of the lake and provides methods to check its location.
  */
-public class Lake {
+public class Lake extends Tile {
     
-    /**
-     * The row position of the lake on the board.
-     */
-    private int row;
-    
-    /**
-     * The column position of the lake on the board.
-     */
-    private int col;
-
     /**
      * Constructs a Lake object with the given row and column position.
      * 
@@ -24,32 +14,22 @@ public class Lake {
      * Post-condition: A new Lake object is created at the specified location.
      */
     public Lake(int row, int col) {
-        this.row = row;
-        this.col = col;
+        super(row, col);
     }
 
-    /**
-     * Gets the row position of the lake.
-     * 
-     * @return The row position of the lake.
-     * 
-     * Pre-condition: Lake object must exist.
-     * Post-condition: Returns the row position.
-     */
-    public int getRow() {
-        return row;
+    @Override
+    public void render() {
+        if (this.currentPiece != null) {
+            // TODO
+            this.currentPiece.render();
+        } else {
+            System.out.print("~");
+        }
     }
 
-    /**
-     * Gets the column position of the lake.
-     * 
-     * @return The column position of the lake.
-     * 
-     * Pre-condition: Lake object must exist.
-     * Post-condition: Returns the column position.
-     */
-    public int getCol() {
-        return col;
+    @Override
+    protected String getOwner() {
+        return null;
     }
 
     /**

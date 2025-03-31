@@ -2,17 +2,7 @@
  * The HomeBase class represents a player's home base in the game.
  * It stores the position and owner of the home base.
  */
-public class HomeBase {
-    
-    /**
-     * The row position of the home base on the board.
-     */
-    private int row;
-    
-    /**
-     * The column position of the home base on the board.
-     */
-    private int col;
+public class HomeBase extends Tile {
     
     /**
      * The owner of the home base ("Blue" or "Green").
@@ -30,44 +20,17 @@ public class HomeBase {
      * Post-condition: A new HomeBase object is created with the specified attributes.
      */
     public HomeBase(int row, int col, String owner) {
-        this.row = row;
-        this.col = col;
+        super(row, col);
         this.owner = owner;
     }
 
-    /**
-     * Gets the row position of the home base.
-     * 
-     * @return The row position of the home base.
-     * 
-     * Pre-condition: HomeBase object must exist.
-     * Post-condition: Returns the row position.
-     */
-    public int getRow() {
-        return row;
+    @Override
+    public void render() {
+        // TODO
     }
 
-    /**
-     * Gets the column position of the home base.
-     * 
-     * @return The column position of the home base.
-     * 
-     * Pre-condition: HomeBase object must exist.
-     * Post-condition: Returns the column position.
-     */
-    public int getCol() {
-        return col;
-    }
-
-    /**
-     * Gets the owner of the home base.
-     * 
-     * @return The owner of the home base ("Blue" or "Green").
-     * 
-     * Pre-condition: HomeBase object must exist.
-     * Post-condition: Returns the owner's name.
-     */
-    public String getOwner() {
-        return owner;
+    @Override
+    protected String getOwner() {
+        return this.owner;
     }
 }
