@@ -107,48 +107,37 @@ public class Player
      */
     public void movePiece(Piece piece, char direction, Board board) 
     {
+        // TEMP: commented out to test views and initial board
+        /*
         int newRow = piece.getRow();
         int newCol = piece.getCol();
     
-        if (direction == 'W') 
-        {
+        if (direction == 'W') {
             newRow--;
-        } 
-        else if (direction == 'S') 
-        {
+        } else if (direction == 'S') {
             newRow++;
-        } 
-        else if (direction == 'A') 
-        {
+        } else if (direction == 'A') {
             newCol--;
-        } else if (direction == 'D') 
-        {
+        } else if (direction == 'D') {
             newCol++;
-        } 
-        else 
-        {
+        } else {
             System.out.println("Invalid direction! Use W, A, S, or D.\n");
             return;
         }
     
-        if (piece.canMove(newRow, newCol, board)) 
-        {
+        if (piece.canMove(newRow, newCol, board)) {
             Piece opponent = board.getPieceAt(newRow, newCol);
             
-            if (opponent != null && opponent.getOwner().equals(piece.getOwner()) && board.isTrap(newRow, newCol)) 
-            {
+            if (opponent != null && opponent.getOwner().equals(piece.getOwner()) && board.isTrap(newRow, newCol)) {
                 System.out.println("Invalid move.\n");
                 return;
             }
 
-            if (opponent != null && board.isOpponentPiece(piece, newRow, newCol)) 
-            {
+            if (opponent != null && board.isOpponentPiece(piece, newRow, newCol)) {
                 if (piece.canCapture(opponent, board)) {
                     System.out.println(piece.getName() + " captured " + opponent.getName() + "!");
                     board.removePiece(opponent);
-                } 
-                else 
-                {
+                } else {
                     System.out.println("Capture not allowed. Try another move.\n");
                     return;
                 }
@@ -156,15 +145,13 @@ public class Player
             
             board.updateBoard(piece, newRow, newCol);
 
-            if (board.isHomeBase(newRow, newCol, piece.getOwner().equals("Blue") ? "Green" : "Blue")) 
-            {
+            if (board.isHomeBase(newRow, newCol, piece.getOwner().equals("Blue") ? "Green" : "Blue")) {
                 System.out.println("\n" + piece.getOwner() + " has captured the opponent's home base!");
             }
-        } 
-        else 
-        {
+        } else {
             System.out.println("Invalid move. Try again.\n");
         }
+        */
     }
 
     /**

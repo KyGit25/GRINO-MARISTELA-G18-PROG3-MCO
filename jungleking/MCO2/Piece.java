@@ -110,6 +110,8 @@ public abstract class Piece {
      * @return true if the piece can capture the opponent piece, false otherwise.
      */
     public boolean canCapture(Piece opponent, Board board) {
+        // TEMP: commented out to test views and initial board
+        /*
         if (opponent == null) {
             return false;
         }
@@ -137,6 +139,8 @@ public abstract class Piece {
         }
         
         return this.strength >= opponent.strength;
+        */
+       return this.strength >= opponent.strength;
     }
 
     /**
