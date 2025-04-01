@@ -106,7 +106,7 @@ public class BoardView {
                 tile.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
                 tile.setContentAreaFilled(true);
                 tile.setOpaque(true);
-                tile.setBackground(new Color(188, 214, 163));
+                tile.setBackground(new Color(200, 200, 200));
                 
                 String tileType = board.getTileAt(row, col);
                 switch (tileType) {
